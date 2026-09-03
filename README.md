@@ -10,14 +10,28 @@
 
 ## 安装（正规化）
 
+### 路径 A：官方 `dsh plugin` 流程（标准，任何机器一条命令）
+
 ```bash
-git clone git@github.com:cstcen/dsh-tui.git && cd dsh-tui
-node scripts/install.mjs            # 装入默认 home；--check 附带冒烟
-DSH_HOME=~/.dsh-some-instance node scripts/install.mjs   # 装入指定 argent 实例
-node scripts/install.mjs --uninstall   # 移除该 home 的 tui profile
+dsh plugin --profile tui add github:cstcen/dsh-tui
 ```
 
-安装器做什么（`scripts/install.mjs`）：
+- 自动初始化 profile、从 GitHub 安装、`bundles` 自动补齐为 `[dsh-base, dsh-tui]`；
+- 仓库为 private，目标机器需能 SSH 访问 `cstcen/dsh-tui`；
+- **更新**：重跑同一条命令（pnpm 会拉取最新 main）；
+- 卸载：`dsh plugin --profile tui remove dsh-tui`；
+- 多实例：`DSH_HOME=~/.dsh-some-instance dsh plugin --profile tui add github:cstcen/dsh-tui`。
+
+### 路径 B：clone + 安装脚本（本地开发 / file: 依赖）
+
+```bash
+git clone git@github.com:cstcen/dsh-tui.git && cd dsh-tui
+node scripts/install.mjs --check        # 装入默认 home；--check 附带冒烟
+DSH_HOME=~/.dsh-some-instance node scripts/install.mjs
+node scripts/install.mjs --uninstall
+```
+
+安装器（`scripts/install.mjs`）做什么：
 
 1. 引导/规整 `$DSH_HOME/profiles/tui/package.json`：`dsh.profile.bundles = [@deepseek-ai/dsh-base, dsh-tui]`；
 2. **清除 dependencies 里任何 `@deepseek-ai/*`**——dsh 子包必须解析自安装闭包（`$DSH_HOME/profiles/node_modules` 回退层），从 registry 装会产生混合版本/断链（dsh 全局红线）；
@@ -26,11 +40,12 @@ node scripts/install.mjs --uninstall   # 移除该 home 的 tui profile
 
 **依赖策略**：包本身**零 dependencies**，运行期依赖（`@deepseek-ai/dsh-*`、`schemastery`、`commander`）全部由 dsh 安装闭包提供，仅在 `peerDependencies` 声明兼容版本（不会触发安装）。
 
-**迭代开发**：改完源码后重跑安装器即可（pnpm 会刷新 file: 拷贝），不要手拷：
+**迭代开发**：标准流程 = 改源码 → `git push` → 重跑路径 A 命令刷新；改完想先本地验证（不 push）时用路径 B 的安装器（`file:` 依赖直连工作区）：
 
 ```bash
 node --check lib/index.js
-node scripts/install.mjs
+node scripts/install.mjs            # 本地 file: 刷新（路径 B）
+dsh --profile tui --help
 printf '/help\n/exit\n' | dsh --profile tui   # REPL 冒烟（不触达 LLM）
 ```
 
