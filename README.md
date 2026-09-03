@@ -17,7 +17,7 @@ dsh plugin --profile tui add github:cstcen/dsh-tui
 ```
 
 - 自动初始化 profile、从 GitHub 安装、`bundles` 自动补齐为 `[dsh-base, dsh-tui]`；
-- 仓库为 private，目标机器需能 SSH 访问 `cstcen/dsh-tui`；
+- 仓库 **public**：任何机器免登录可装（无需 GitHub 账号/SSH key）；
 - **更新**：重跑同一条命令（pnpm 会拉取最新 main）；
 - 卸载：`dsh plugin --profile tui remove dsh-tui`；
 - 多实例：`DSH_HOME=~/.dsh-some-instance dsh plugin --profile tui add github:cstcen/dsh-tui`。

@@ -3,7 +3,7 @@
 > 本文件是 dsh-tui 的进度记录：**迭代前先读这里**，改动完成后更新「当前状态」并追加历史。
 > 配套技能：`skills/dsh-tui-dev/SKILL.md`（架构红线 + 冒烟清单，装到 `~/.dsh/skills/dsh-tui-dev/` 后每个会话可用）。
 
-- 仓库：`/Users/chester/Code/dsh-tui` → GitHub `cstcen/dsh-tui`（private）
+- 仓库：`/Users/chester/Code/dsh-tui` → GitHub `cstcen/dsh-tui`（public，免登录安装）
 - 兼容线：dsh **0.1.1-rc.1**（本机锁定版本，flat-scope / 197 子包）
 - 定位：独立迭代的 dsh 纯终端客户端（bundle 插件 + `tui` profile），不依赖 argent-dsh，参考其插件供给模式
 

@@ -20,7 +20,7 @@ dsh-tui 是**独立迭代**的 DeepSeek Harness 纯终端交互客户端（bundl
 
 ## 核心入口
 
-- **源码仓库**：`/Users/chester/Code/dsh-tui`（git，origin = `git@github.com:cstcen/dsh-tui.git`，private）
+- **源码仓库**：`/Users/chester/Code/dsh-tui`（git，origin = `git@github.com:cstcen/dsh-tui.git`，public）
 - **进度文档**：仓库内 `docs/ITERATION.md`（当前状态/版本历史/backlog——迭代前先读它）
 - **运行副本**：`~/.dsh/profiles/tui/`（Path A 安装：`dependencies: dsh-tui: github:cstcen/dsh-tui`，跑的是 GitHub main，**不是**本地工作区）
 
@@ -44,7 +44,7 @@ dsh-tui 是**独立迭代**的 DeepSeek Harness 纯终端交互客户端（bundl
 
 ## 安装 / 刷新 / 卸载
 
-标准（Path A，任何机器一条命令；private 仓库需 SSH key）：
+标准（Path A，任何机器一条命令；仓库 public，免登录）：
 
 ```bash
 dsh plugin --profile tui add github:cstcen/dsh-tui      # 装 & 刷新（拉 GitHub main）
